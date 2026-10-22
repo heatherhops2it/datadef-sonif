@@ -30,5 +30,24 @@ library(tidyverse)
 
 ## Search filters on iucnredlist.org correspond to functions within rredlist
 
-## Using functions like rl_class() returns list of species that fit that criterion 
-df <- rl_class(class = "Actinopterygii", latest = TRUE)
+
+
+
+# Working w Karianne 2026/10/22 -------------------------------------------
+
+## 2026/10/22 all fish, latest assessment, only global assessments. 
+df <- rl_class(class = "Actinopterygii", latest = TRUE, scope_code = 1)
+
+## get the fish table from Karianne's code (looking at rfishbase)
+
+## combine fish table w assessment table
+df2 <- df$assessments |> 
+  mutate(sci_name = taxon_scientific_name) |>    # rename columns for joining
+  left_join(fish) |> 
+  filter(!red_list_category_code %in% c("LC", "EX", "EW")) |>  # remove certain categories
+  mutate(url = str_replace(url, pattern = "https://www.iucnredlist.org/species/", replacement = "")) |>   # get rid of extraneous info from url
+  separate_wider_delim(url, names = c("url", "search_id"),delim = "/")  # separate out columns to get the number string (search_id) we need
+
+
+## next task: loop the search_id from df2 to look for threats and conservation actions. use rl_assessment().
+
