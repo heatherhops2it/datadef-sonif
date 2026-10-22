@@ -6,7 +6,7 @@
 
 # Load libraries ----------------------------------------------------------
 
-library(rredlist)   # install.packages("rredlist")
+library(rredlist)    #install.packages("rredlist")
 library(rfishbase)   # install.packages("rfishbase")
 library(tidyverse)
 
@@ -31,12 +31,27 @@ library(tidyverse)
 ## Search filters on iucnredlist.org correspond to functions within rredlist
 
 
+#API Key Setup ------------------------------------------------
+#usethis::edit_r_environ()
+#IUCN_REDLIST_KEY="rlts_Kcjg1bD5qDIMXA0fROAExw7wRYgzoo0aTBTo"
+
 
 
 # Working w Karianne 2026/10/22 -------------------------------------------
 
 ## 2026/10/22 all fish, latest assessment, only global assessments. 
-df <- rl_class(class = "Actinopterygii", latest = TRUE, scope_code = 1)
+df <- rl_class(class = "Actinopterygii", latest = TRUE, scope_code = 1)  #Scope code is to get global data only, not global and europe
+
+
+#Karianne's code for fishbase: 
+
+fish <- fb_tbl("species") %>% 
+  mutate(sci_name = paste(Genus, Species)) %>% 
+  select(sci_name, Genus, Species, FBname)
+
+View(fish)
+
+
 
 ## get the fish table from Karianne's code (looking at rfishbase)
 
@@ -54,7 +69,5 @@ df2 <- df$assessments |>
 # for loop to get assessment info per sp ----------------------------------
 
 ## next task: loop the search_id from df2 to look for threats and conservation actions. use rl_assessment().
-
-
 
 
