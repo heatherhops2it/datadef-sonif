@@ -1,0 +1,37 @@
+---
+title: "Fishbase"
+author: "Karianne Kapfer"
+date: "2026-10-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+#install.packages("remotes")
+#remotes::install_github("ropensci/rfishbase")
+library("rfishbase")
+library("dplyr") # convenient but not required
+```
+
+
+```{r General}
+
+General <- fb_tbl("ecosystem")
+View(General)
+
+fb_tables()
+
+fish <- fb_tbl("species") %>% 
+  mutate(sci_name = paste(Genus, Species)) %>% 
+  select(sci_name, Genus, Species, FBname)
+
+View(fish)
+
+```
+
+
+
+```{r RedList}
+
+
+
+```
