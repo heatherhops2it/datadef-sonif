@@ -49,5 +49,12 @@ df2 <- df$assessments |>
   separate_wider_delim(url, names = c("url", "search_id"),delim = "/")  # separate out columns to get the number string (search_id) we need
 
 
+
+
+# for loop to get assessment info per sp ----------------------------------
+
 ## next task: loop the search_id from df2 to look for threats and conservation actions. use rl_assessment().
+
+
+
 
