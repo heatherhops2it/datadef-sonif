@@ -31,7 +31,6 @@ View(fish)
 
 
 ```{r RedList}
-
-
+remotes::install_github("ropensci/rredlist")
 
 ```
