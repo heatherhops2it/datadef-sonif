@@ -25,5 +25,10 @@ library(tidyverse)
 
 # Q2: What is in rredlist? ------------------------------------------------
 
-
 ## https://github.com/ropensci/rredlist
+## You need to get an IUCN API key before you can use any of the functions in rredlist. Use function rl_use_iucn()
+
+## Search filters on iucnredlist.org correspond to functions within rredlist
+
+## Using functions like rl_class() returns list of species that fit that criterion 
+df <- rl_class(class = "Actinopterygii", latest = TRUE)
